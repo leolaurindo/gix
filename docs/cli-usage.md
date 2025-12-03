@@ -60,7 +60,7 @@ Descriptions are never used unless `--desc-lookup` is set, and description match
 9. Trust decision:
    - Skipped when `--yes` or `--trust-always` is set, when mode is `all`, when the gist ID is already trusted, when the owner is trusted, or when mode=`mine` and the owner matches your `gh` user.
    - Otherwise, you are prompted; entering `v` shows files before deciding. `--trust-always` also stores the gist as trusted after the run.
-10. Command resolution (in order): manifest (`gix.json` or `--manifest <name>`) with `run` + optional `env`; shebang on the chosen file; extension map (.sh -> sh, .ps1 -> powershell, .bat/.cmd -> cmd /C on Windows, .py -> python, .js -> node, .ts -> npx ts-node, .go -> go run, .rb -> ruby, .pl -> perl, .php -> php). Entrypoint preference: `main.*` then `index.*` then the first file (sorted).
+10. Command resolution (in order): manifest (`gix.json` or `--manifest <name>`) with `run` (string, executed via shell) + optional `env`; shebang on the chosen file; extension map (.sh -> sh, .ps1 -> powershell, .bat/.cmd -> cmd /C on Windows, .py -> python, .js -> node, .ts -> npx ts-node, .go -> go run, .rb -> ruby, .pl -> perl, .php -> php). Entrypoint preference: `main.*` then `index.*` then the first file (sorted).
 11. Execution: runs the resolved command in the exec dir with any extra env from the manifest. `--timeout` cancels long runs.
 
 ## Run flags (high level)
@@ -84,6 +84,10 @@ Descriptions are never used unless `--desc-lookup` is set, and description match
 - `gix config-cache --mode cache|never [--show]`: set or display cache mode.
 - `gix config-exec --mode isolate|cwd [--show]`: set or display execution directory mode.
 - `gix describe <gist-id|url|alias|name|owner/name>`: show description (prefers index/cache, otherwise fetches).
+
+## Manifest example
+
+See `docs/manifest-example.md` for a sample `gix.json` that pins the command and env for a gist.
 
 ## Common errors
 

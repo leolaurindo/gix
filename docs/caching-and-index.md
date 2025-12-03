@@ -1,7 +1,7 @@
 # Caching and index
 
 ## Directories and files
-
+g
 - Config dir (stores aliases, index, settings):
   - Windows: `%APPDATA%\gix` (e.g. `C:\Users\<you>\AppData\Roaming\gix`)
   - Linux: `~/.config/gix`
