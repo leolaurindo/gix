@@ -50,7 +50,9 @@ jobs:
       - name: Build
         run: |
           mkdir -p dist
-          GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} go build -o dist/gix${{ matrix.ext }} ./cmd/gix
+          GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} go build \
+            -ldflags "-X github.com/leolaurindo/gix/internal/version.Version=${VERSION}" \
+            -o dist/gix${{ matrix.ext }} ./cmd/gix
 
       - name: Package
         run: |
