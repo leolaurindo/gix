@@ -9,6 +9,7 @@ import (
 	ucli "github.com/urfave/cli/v2"
 
 	"github.com/leolaurindo/gix/internal/config"
+	"github.com/leolaurindo/gix/internal/version"
 )
 
 const commandName = "gix"
@@ -33,6 +34,7 @@ func newApp() *ucli.App {
 
 	return &ucli.App{
 		Name:      commandName,
+		Version:   version.Version,
 		Usage:     "run code directly from GitHub gists",
 		UsageText: "gix [run flags] <gist-id|url|alias|name> [-- <args to gist>]",
 		Flags:     runFlags,
@@ -202,6 +204,16 @@ func newApp() *ucli.App {
 					return handleConfigExec(c.String("mode"), c.Bool("show"))
 				},
 			},
+			{
+				Name:  "check-updates",
+				Usage: "check if a newer gix release is available",
+				Flags: []ucli.Flag{
+					&ucli.BoolFlag{Name: "json", Usage: "output machine-readable update info"},
+				},
+				Action: func(c *ucli.Context) error {
+					return handleCheckUpdates(c.Context, c.Bool("json"))
+				},
+			},
 		},
 	}
 }
@@ -252,7 +264,7 @@ func runFlags() []ucli.Flag {
 		&ucli.StringFlag{Name: "manifest", Value: "gix.json", Usage: "run manifest filename"},
 		&ucli.BoolFlag{Name: "print-cmd", Usage: "print resolved command"},
 		&ucli.BoolFlag{Name: "dry-run", Usage: "resolve but do not execute"},
-		&ucli.BoolFlag{Name: "view", Aliases: []string{"v"}, Usage: "print gist text content and exit without running"},
+		&ucli.BoolFlag{Name: "view", Usage: "print gist text content and exit without running"},
 		&ucli.BoolFlag{Name: "clear-cache", Usage: "clear cache directory before running"},
 		&ucli.BoolFlag{Name: "verbose", Usage: "verbose logging for run command"},
 		&ucli.BoolFlag{Name: "user-lookup", Aliases: []string{"u"}, Usage: "enable live user/name lookup without index"},
