@@ -47,6 +47,21 @@ go build -o bin/gix ./cmd/gix
 
 For both options, place `gix` (macOS/Linux) or `gix.exe` (Windows) somewhere on your `PATH` (e.g., `~/.local/bin`, `/usr/local/bin`, or `%USERPROFILE%\bin`, or any other directory on your PATH).
 
+### Option 3: Install via `go install`
+
+If you have Go in your environment, you can install `gix` as a go tool with:
+
+```sh
+go install github.com/leolaurindo/gix/cmd/gix@latest
+```
+
+This installs to your Go `GOBIN`/`GOPATH/bin`; ensure that directory is on your `PATH`.
+
+### Updating
+
+- If installed with `go install`, update by re-running `go install github.com/leolaurindo/gix/cmd/gix@latest`.
+- If using a prebuilt binary, download the latest release and replace the existing `gix` on your `PATH`.
+
 
 ### First runs
 
