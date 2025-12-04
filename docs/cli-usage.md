@@ -17,6 +17,7 @@ gix [run flags] <gist-id|url|alias|name|owner/name> [-- <args to gist>]
 - After the literal `--`, every argument is forwarded to the gist unchanged.
   - If the argument does not look like a flag and comes after the target, gix treats it as a gist argument automatically (no need for `--`).
 - Relative forwarded args are resolved against your original shell CWD so they still point at the same files when you run in an isolated workdir.
+- Show the build version with `gix --version`.
 
 ## Identifier resolution
 
@@ -54,7 +55,7 @@ Descriptions are never used unless `--desc-lookup` is set, and description match
    - Workdir always holds the gist files; exec dir controls where the command runs.
 7. Files are materialized with path sanitization (no `..`, no absolute or drive-prefixed paths). Cached manifest+files are reused unless `--update` is set. A manifest is saved unless `--no-cache` is in effect.
 8. Inspection shortcuts:
-   - `--view/-v` prints all gist files (from cache/workdir) and exits.
+   - `--view` prints all gist files (from cache/workdir) and exits.
    - `--print-cmd` shows the command gix will run.
    - `--dry-run` resolves everything and exits before execution (prints the command too).
 9. Trust decision:
@@ -67,7 +68,7 @@ Descriptions are never used unless `--desc-lookup` is set, and description match
 
 - Resolution: `--ref <sha>`, `--user-lookup/-u`, `--user-pages/-p <n>`, `--desc-lookup`
 - Caching: `--no-cache`, `--update`, `--cache-dir <path>`, `--clear-cache`, `--update-index` (refresh existing index entries before running)
-- Manifests/inspection: `--manifest <file>`, `--print-cmd`, `--dry-run`, `--view/-v`, `--verbose`
+- Manifests/inspection: `--manifest <file>`, `--print-cmd`, `--dry-run`, `--view`, `--verbose`
 - Execution: `--isolate`, `--cwd/--here`, `--timeout <duration>`
 - Trust: `--yes/-y`, `--trust-always`, `--trust-all`
 
@@ -85,6 +86,7 @@ Descriptions are never used unless `--desc-lookup` is set, and description match
 - `gix config-cache --mode cache|never [--show]`: set or display cache mode.
 - `gix config-exec --mode isolate|cwd [--show]`: set or display execution directory mode.
 - `gix describe <gist-id|url|alias|name|owner/name>`: show description (prefers index/cache, otherwise fetches).
+- `gix check-updates [--json]`: compare the current binary against the latest GitHub release and print copy/paste download/replace commands for your platform (does not self update, but includes platform-specific instructions for easy copy/paste).
 
 ## Manifest example
 
